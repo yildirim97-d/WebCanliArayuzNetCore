@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<VideoModel>
+
+@{ ViewData["Title"] = "Index"; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Optima Live</title>
+    <link href="~/css/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <h3 class="heading"> Canlı Yayın </h3>
+    <link rel="stylesheet" href="style.css">
+    <a style="width:100%;  font-size:15px; color:black" class="btn btn-light  heading" asp-area="" asp-controller="Video" asp-action="Create">Yayın Ekle</a>
+
+    <div class="container2">
+
+        <div class="main-video">
+            <div class="video">
+                <iframe height="450" src="https://www.youtube.com/embed/AdUw5RdyZxI?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <h3 class="title"> </h3>
+
+            </div>
+        </div>
+
+        <div class="video-list">
+            @foreach (var item in Model)
+            {
+                <div class="vid">
+                    <iframe src="@item.yayinLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3 class="title">@item.yayinAdi </h3>
+                </div>
+            }
+
+
+
+
+        </div>
+
+
+    </div>
+    <script>
+        let listVideo = document.querySelectorAll('.video-list .vid');
+        let mainVideo = document.querySelector('.main-video iframe');
+        let title = document.querySelector('.main-video .title');
+
+        listVideo.forEach(video => {
+            video.onclick = () => {
+                listVideo.forEach(vid => vid.classList.remove('active'));
+                video.classList.add('active');
+                if (video.classList.contains('active')) {
+                    let src = video.children[0].getAttribute('src');
+                    mainVideo.src = src;
+                    let text = video.children[1].innerHTML;
+                    title.innerHTML = text;
+                }
+            }
+        })</script>
+</body>
+</html>
